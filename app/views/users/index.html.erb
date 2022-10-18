@@ -1,0 +1,25 @@
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+<% end %>
+
+登録されたユーザー一覧
+<% @users.each do |e| %>
+    <p>
+        <%= e.uid %>
+        <%= e.pass %>
+        <%= link_to '削除', "/users/#{e.id}", method: :delete %>
+    </p>
+<% end %>
+
+<%= link_to 'ツイートする', new_tweet_path %>
+
+<% @tweets.each do |e| %>
+    <p>
+        <%= e.message %>
+        <%= link_to '削除', "/tweets/#{e.id}", method: :delete %>
+        <%= link_to 'いいね', likes_path(tweet_id: e.id), method: :post %>
+        <%= link_to 'いいね取消', like_path(e), method: :delete %>
+    </p>
+<% end %>
+
+ログアウトは<%= link_to "こちら", top_logout_path %>
